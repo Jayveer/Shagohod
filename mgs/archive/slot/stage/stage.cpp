@@ -10,6 +10,20 @@ int64_t Stage::getNextPageOffset(uint16_t pageID) {
 	return (pageID == header.numPages - 1) ? getFileSize(filename) : table[pageID + 1].offset * sector;
 }
 
+void Stage::populateTable(uint8_t* data) {
+	int stride = GAME == SUBSISTENCE ? 0x14 : 0x0C;
+
+	for (int i = 0; i < header.numPages; i++) {		
+		int pos = i * stride;
+		int s = 0; 
+		while (data[pos + s] != '\0') { s++; }
+		table[i].name.reserve(s);
+		table[i].name.assign((char*)&data[pos], s);
+		pos = pos + (stride - 4);
+		table[i].offset = *(uint32_t*)&data[pos];
+	}
+}
+
 void Stage::open() {
 	std::ifstream stageDat;
 	stageDat.open(filename, std::ios::binary);
@@ -20,10 +34,16 @@ void Stage::open() {
 	uint32_t keyB = keyA ^ 0xF0F0;
 	keyA = decryptor.decodeBuffer(keyA, keyB, 0, 0x0C, (uint8_t*)&header.version);
 
+	int stride = GAME == SUBSISTENCE ? 0x14 : 0x0C;
+	size = stride * header.numPages;
 	table.resize(header.numPages);
-	size = sizeof(StageTable) * header.numPages;
-	stageDat.read((char*)&table[0], size);
-	keyA = decryptor.decodeBuffer(keyA, keyB, 0, size, (uint8_t*)&table[0]);
+
+	uint8_t* tableData = new uint8_t[size];	
+	stageDat.read((char*)tableData, size);
+	keyA = decryptor.decodeBuffer(keyA, keyB, 0, size, tableData);
+
+	populateTable(tableData);
+	delete[] tableData;
 }
 
 void Stage::extract(uint16_t pageID, std::string output) {

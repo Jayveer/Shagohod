@@ -3,6 +3,7 @@
 
 #include "../archive.h"
 #include "../../config/cnf.h"
+#include "../../common/game/game.h"
 #include "../../common/decryptor/decryptor.h"
 #include "../../3rdparty/zlib/wrapper/ZlibWrapper.h"
 

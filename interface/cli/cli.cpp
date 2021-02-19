@@ -10,15 +10,23 @@ CLI::~CLI() {
 }
 
 bool CLI::isStage(const std::string& filepath) {
-	return filenameContainsString(filepath, "STAGE");
+	if (filenameContainsString(filepath, "STAGE") || filenameContainsString(filepath, "stage"))
+		return true;
+
+	return false;
 }
 
 bool CLI::isSlot(const std::string& filepath) {
-	return filenameContainsString(filepath, "SLOT");
+	if (filenameContainsString(filepath, "SLOT") || filenameContainsString(filepath, "slot"))
+		return true;
+
+	return false;
 }
 
 bool CLI::isDat(const std::string& filepath) {
-	if (getExtension(filepath) == ".DAT")  return true;
+	if (getExtension(filepath) == ".DAT" || getExtension(filepath) == ".dat")
+		return true;
+
 	printf("Unsupported file type\n");
 	exit();
 	return false;
@@ -32,7 +40,29 @@ void CLI::extractArchive(Archive& archive) {
 	archive.extractAll(output);
 }
 
+void CLI::processCommands() {
+	while (currentArg < 2 && isCommand(argv[currentArg])) {
+		setCommand(argv[currentArg]);
+		currentArg++;
+	}
+}
+
+void CLI::setCommand(char* arg) {
+
+	if (!strcmp(arg, "-SUBSISTENCE") || !strcmp(arg, "-sub") || !strcmp(arg, "-SUB") || !strcmp(arg, "-subsistence")) {
+		GAME = SUBSISTENCE;
+		return;
+	}
+
+	printf("command not recognised\n");
+}
+
 void CLI::processArgs() {
+	processCommands();
+	processFile();
+}
+
+void CLI::processFile() {
 	std::string input = argv[currentArg];	
 	currentArg++;	
 
@@ -55,7 +85,7 @@ void CLI::processArgs() {
 }
 
 bool CLI::checkInput() {
-	if (argc > 1 && argc < 4) return true;
+	if (argc > 1 && argc < 5) return true;
 	printUsage();
 	return false;
 }
@@ -65,6 +95,10 @@ void CLI::run(std::string programName, std::string version) {
 	loadDictionary("dictionary.txt");
 	if (!checkInput()) return;
 	processArgs();
+}
+
+bool CLI::isCommand(char* arg) {
+	return arg[0] == 0x2D;
 }
 
 void CLI::printUsage() {

@@ -14,7 +14,7 @@ This project uses [Zlib](https://github.com/madler/zlib) by [Mark Adler](https:/
 
 ##  Usage
 
-Currently only a CLI version of the application exists. The program is primitive and just takes the filename as the only required argument. An optional output directory can also be added. It is also possible to just drag the file you wish to extract on the executable. A dictionary file is also included in order to resolve a lot of the hashes, the result is incomplete.
+Currently only a CLI version of the application exists.  If you wish to extract from the subsistence version of the game use the '-sub' option. An optional output directory can also be added. If extracting from the base game it is possible to just drag the file you wish to extract on the executable. A dictionary file is also included in order to resolve a lot of the hashes, the result is incomplete.
 
 If you wish to use the dictionary to resolve filenames place it alonside Shagohod.exe, please note this program is designed to work with the PS2 version of MGS3.
 
@@ -22,6 +22,11 @@ If you wish to use the dictionary to resolve filenames place it alonside Shagoho
 Shagohod.exe "path\to\STAGE.DAT"
 ```
 The above instruction will extract all files from STAGE.DAT to the current directory.
+
+```
+Shagohod.exe -sub "path\to\STAGE.DAT"
+```
+The above instruction will extract all files from STAGE.DAT for the subsistence version of the game.
 
 ```
 Shagohod.exe "path\to\SLOT.DAT" "path\to\output"

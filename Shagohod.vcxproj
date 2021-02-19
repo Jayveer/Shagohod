@@ -155,6 +155,7 @@
     <ClCompile Include="mgs\archive\slot\stage\stage.cpp" />
     <ClCompile Include="mgs\common\decryptor\decryptor.cpp" />
     <ClCompile Include="mgs\archive\slot\slot.cpp" />
+    <ClCompile Include="mgs\common\game\game.cpp" />
     <ClCompile Include="mgs\config\cnf.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -168,6 +169,7 @@
     <ClInclude Include="mgs\common\decryptor\decryptor.h" />
     <ClInclude Include="mgs\common\ext_table.h" />
     <ClInclude Include="mgs\common\fileutil.h" />
+    <ClInclude Include="mgs\common\game\game.h" />
     <ClInclude Include="mgs\common\strcode.h" />
     <ClInclude Include="mgs\common\util.h" />
     <ClInclude Include="mgs\archive\slot\slot.h" />

@@ -39,6 +39,9 @@
     <ClCompile Include="mgs\archive\slot\stage\stage.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="mgs\common\game\game.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="interface\cli\cli.h">
@@ -81,6 +84,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="mgs\archive\slot\stage\stage.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="mgs\common\game\game.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
